@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h2>Todo List</h2>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        // Array to store tasks
+        let tasks = [];
+
+        // Function to add a new task
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+
+            // Input validation: check if task is empty
+            if (taskText === "") {
+                alert("Task cannot be empty!");
+                return;
+            }
+
+            // Add task to the array and clear input
+            tasks.push(taskText);
+            taskInput.value = "";
+
+            // Update the DOM
+            renderTasks();
+        }
+
+        // Function to delete a task
+        function deleteTask(index) {
+            // Remove the task from the array
+            tasks.splice(index, 1);
+
+            // Update the DOM
+            renderTasks();
+        }
+
+        // Function to render tasks in the DOM
+        function renderTasks() {
+            const taskList = document.getElementById("taskList");
+
+            // Clear the current list
+            taskList.innerHTML = "";
+
+            // Loop through the tasks array and create list items
+            tasks.forEach((task, index) => {
+                const li = document.createElement("li");
+                li.textContent = task;
+
+                // Add delete button to each task
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.onclick = () => deleteTask(index);
+
+                // Append delete button to list item
+                li.appendChild(deleteBtn);
+
+                // Append list item to the list
+                taskList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

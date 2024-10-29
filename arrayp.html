@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h2>Todo List</h2>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+
+        let tasks = [];
+
+        
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const taskText = taskInput.value.trim();
+
+            
+            if (taskText === "") {
+                alert("Task cannot be empty!");
+                return;
+            }
+
+        
+            tasks.push(taskText);
+            taskInput.value = "";
+
+            
+            renderTasks();
+        }
+
+        
+        function deleteTask(index) {
+            
+            tasks.splice(index, 1);
+
+            
+            renderTasks();
+        }
+
+        
+        function renderTasks() {
+            const taskList = document.getElementById("taskList");
+
+        
+            taskList.innerHTML = "";
+
+            
+            tasks.forEach((task, index) => {
+                const li = document.createElement("li");
+                li.textContent = task;
+
+                
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.onclick = () => deleteTask(index);
+
+                
+                li.appendChild(deleteBtn);
+
+                
+                taskList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
